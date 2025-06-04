@@ -11,7 +11,7 @@ func main() {
 	e := echo.New()
 
 	e.GET("/ping", func(c echo.Context) error {
-		return c.String(http.StatusOK, "pong")
+		return c.String(http.StatusOK, "вперед процессы")
 	})
 
 	port := os.Getenv("PORT")
