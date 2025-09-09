@@ -41,6 +41,7 @@ func main() {
 
 	// Создаём Echo
 	e := echo.New()
+	e.POST("/auth/login", LoginHandler)
 
 	// Эндпоинт для проверки приложения
 	e.GET("/ping", func(c echo.Context) error {
