@@ -12,6 +12,8 @@ import (
 	"github.com/labstack/echo/v4"
 )
 
+var dbPool *pgxpool.Pool // <-- глобальная переменная пула
+
 func main() {
 	// Читаем конфиг из окружения
 	dbURL := fmt.Sprintf(
@@ -31,6 +33,8 @@ func main() {
 	if err != nil {
 		log.Fatalf("Unable to connect to database: %v\n", err)
 	}
+	// присваиваем глобальной переменной
+	dbPool = pool
 	defer pool.Close()
 
 	// Проверяем соединение
@@ -41,6 +45,9 @@ func main() {
 
 	// Создаём Echo
 	e := echo.New()
+
+	// auth endpoints
+	e.POST("/auth/register", RegisterHandler)
 	e.POST("/auth/login", LoginHandler)
 
 	// Эндпоинт для проверки приложения
